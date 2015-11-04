@@ -31,12 +31,14 @@ class ResponceMachine:
         with open('beiberHate.txt','r') as f:
             lines = f.read().splitlines()
             message = lines[randint(0,len(lines)-1)]
+            f.close()
             print(message)
             return message
     def beiberLove(self):
         with open('beiberLove.txt','r') as f:
             lines = f.read().splitlines()
             message = lines[randint(0,len(lines)-1)]
+            f.close()
             print(message)
             return message
 
