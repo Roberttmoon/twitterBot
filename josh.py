@@ -19,7 +19,6 @@ def uprint(*objects, sep=' ', end='\n', file=sys.stdout):
 class Follower:
     def __init__(self, twitterHandle):
         self.userName = twitterHandle
-    def followerFinder(self):
         self.followers = api.followers_ids(self.userName)
     def follower(self):
         counter = random.randint(0,100)
@@ -27,15 +26,9 @@ class Follower:
             api.create_friendship(self.followers[counter])
             print("followed " + str(self.followers[counter]))
             counter -= 1
-    def biebsFollowerGenerator():
-        justinBieber = Follower('justinbieber')
-        justinBieber.followerFinder()
-        justinBieber.follower()
-    def messager():
-        ourAccount = Follower('beliebthehype')
-        ourAccount.followerFinder()
-        numFollowers = len(ourAccount.followers)
-        messageRecp = ourAccount.followers[random.randint(0,numFollowers)]
+    def messager(self):
+        numFollowers = len(self.followers)
+        messageRecp = self.followers[random.randint(0,numFollowers)]
         api.send_direct_message(user_id = messageRecp, text = "hi")
 class Retweeter:
     def __init__(self):
@@ -75,6 +68,11 @@ class Retweeter:
             Retweeter.retweeterSearch()
         else:
             Retweeter.retweeterFriends()
+ourAccount = Follower('beliebthehype')
+justinBieber = Follower('justinbieber')
+ourAccount.messager()
+justinBieber.follower()
+
 
 
 
