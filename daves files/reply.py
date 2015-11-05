@@ -27,6 +27,7 @@ while True:
 
     tweetSearchResults = api.search(q=trend_hashtag,count=50)     
     #list of specific strings we want to check for in Tweets
+    #pulls replies from list
     filename=open(argfile,'r')
     f=filename.readlines()
     filename.close()
