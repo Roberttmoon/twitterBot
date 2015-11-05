@@ -47,8 +47,3 @@ class ResponceMachine:
 hashtag = "#hastag"
 responder = ResponceMachine(hashtag)
 responder.followerChecker()
-
-
-
-
-
