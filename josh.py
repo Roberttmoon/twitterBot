@@ -16,9 +16,9 @@ def uprint(*objects, sep=' ', end='\n', file=sys.stdout):
     else:
         f = lambda obj: str(obj).encode(enc, errors='backslashreplace').decode(enc)
         print(*map(f, objects), sep=sep, end=end, file=file)
-class FollowerGenerator:
-    def __init__(self):
-        self.userName = str(input("Enter Username"))
+class Follower:
+    def __init__(self, twitterHandle):
+        self.userName = twitterHandle
     def followerFinder(self):
         self.followers = api.followers_ids(self.userName)
     def follower(self):
@@ -27,28 +27,57 @@ class FollowerGenerator:
             api.create_friendship(self.followers[counter])
             print("followed " + str(self.followers[counter]))
             counter -= 1
-    def followerGenerator():
-        followDude = FollowerGenerator()
-        followDude.followerFinder()
-        followDude.follower()
+    def biebsFollowerGenerator():
+        justinBieber = Follower('justinbieber')
+        justinBieber.followerFinder()
+        justinBieber.follower()
+    def messager():
+        ourAccount = Follower('beliebthehype')
+        ourAccount.followerFinder()
+        numFollowers = len(ourAccount.followers)
+        messageRecp = ourAccount.followers[random.randint(0,numFollowers)]
+        api.send_direct_message(user_id = messageRecp, text = "hi")
 class Retweeter:
     def __init__(self):
-        self.dumptruck = []
-        self.searchQuery = str(input("Enter Search Term for retweet"))
+        self.tweetList = []
     def retweetdump(self):
+        self.searchQuery = str(input("Enter Search Term for retweet"))
         rand = random.randint(0,10)
         for result in api.search(q=self.searchQuery, lang="en"):
-            self.dumptruck.append(result.id)
-        json.dump([self.dumptruck], dump)
-    def retweet(self):
-        rand = random.randint(0,10)
+            self.tweetList.append(result.id)
+        json.dump([self.tweetList], dump)
+    def retweetSearch(self):
+        self.searchQuery = str(input("Enter Search Term for retweet"))
         for result in api.search(q=self.searchQuery, lang="en"):
-            self.dumptruck.append(result.id)
-        api.retweet(self.dumptruck[rand])
-    def retweeter():
+            self.tweetList.append(result.id)
+        numTweets = len(self.tweetList)
+        rand = random.randint(0,numTweets)
+        api.retweet(self.tweetList[rand])
+    def retweeterSearch():
         retweetDude = Retweeter()
-        retweetDude.retweet()
-FollowerGenerator.followerGenerator()
+        retweetDude.retweetSearch()
+    def retweetFriends(self):
+        ourAccount = Follower('beliebthehype')
+        ourAccount.followerFinder()
+        numFollowers = len(ourAccount.followers)
+        messageRecp = ourAccount.followers[random.randint(0,numFollowers)]
+        for result in api.user_timeline(messageRecp):
+            self.tweetList.append(result.id)
+        numTweets = len(self.tweetList)
+        rand = random.randint(0,numTweets)
+        api.retweet(self.tweetList[rand])
+    def retweeterFriends():
+        friendRetweetDude = Retweeter()
+        friendRetweetDude.retweetFriends()
+    def retweeterRandom():
+        rand = random.randint(0,1)
+        if rand == 0:
+            Retweeter.retweeterSearch()
+        else:
+            Retweeter.retweeterFriends()
+
+
+
 
 
     
