@@ -26,11 +26,13 @@ class Follower:
             api.create_friendship(self.followers[counter])
             print("followed " + str(self.followers[counter]))
             counter -= 1
+        self.followers = []
     def messager(self):
         numFollowers = len(self.followers)
         messageRecp = self.followers[random.randint(0,numFollowers)]
         api.send_direct_message(user_id = messageRecp, text = "hi")
-class Retweeter:
+        self.followers = []
+class RetweeterReplyer:
     def __init__(self):
         self.tweetList = []
     def retweetdump(self):
@@ -39,6 +41,7 @@ class Retweeter:
         for result in api.search(q=self.searchQuery, lang="en"):
             self.tweetList.append(result.id)
         json.dump([self.tweetList], dump)
+        self.tweetList = []
     def retweetSearch(self):
         self.searchQuery = str(input("Enter Search Term for retweet"))
         for result in api.search(q=self.searchQuery, lang="en"):
@@ -46,6 +49,7 @@ class Retweeter:
         numTweets = len(self.tweetList)
         rand = random.randint(0,numTweets)
         api.retweet(self.tweetList[rand])
+        self.tweetList = []
     def retweetFriends(self):
         numFollowers = len(ourAccount.followers)
         messageRecp = ourAccount.followers[random.randint(0,numFollowers)]
@@ -54,16 +58,30 @@ class Retweeter:
         numTweets = len(self.tweetList)
         rand = random.randint(0,numTweets)
         api.retweet(self.tweetList[rand])
+        self.tweetList = []
     def retweeterRandom(self):
         rand = random.randint(0,1)
         if rand == 0:
             self.retweetSearch()
         else:
             self.retweetFriends()
+    def replyer(self):
+        self.searchQuery = "#PURPOSE"
+        for result in api.search(q=self.searchQuery, lang="en"):
+            self.tweetList.append(result.id)
+        numTweets = len(self.tweetList)
+        rand = random.randint(0,numTweets)
+        print(self.tweetList[rand])
+        api.update_status("I belieb", in_reply_to_status_id=(self.tweetList[rand]))
+        self.tweetList = []
+        
+        
 ourAccount = Follower('beliebthehype')
 justinBieber = Follower('justinbieber')
-shit = Retweeter()
-shit.retweeterRandom()
+blah = RetweeterReplyer()
+blah.replyer()
+
+
 
 
 
