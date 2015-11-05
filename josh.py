@@ -46,12 +46,7 @@ class Retweeter:
         numTweets = len(self.tweetList)
         rand = random.randint(0,numTweets)
         api.retweet(self.tweetList[rand])
-    def retweeterSearch():
-        retweetDude = Retweeter()
-        retweetDude.retweetSearch()
     def retweetFriends(self):
-        ourAccount = Follower('beliebthehype')
-        ourAccount.followerFinder()
         numFollowers = len(ourAccount.followers)
         messageRecp = ourAccount.followers[random.randint(0,numFollowers)]
         for result in api.user_timeline(messageRecp):
@@ -59,19 +54,16 @@ class Retweeter:
         numTweets = len(self.tweetList)
         rand = random.randint(0,numTweets)
         api.retweet(self.tweetList[rand])
-    def retweeterFriends():
-        friendRetweetDude = Retweeter()
-        friendRetweetDude.retweetFriends()
-    def retweeterRandom():
+    def retweeterRandom(self):
         rand = random.randint(0,1)
         if rand == 0:
-            Retweeter.retweeterSearch()
+            self.retweetSearch()
         else:
-            Retweeter.retweeterFriends()
+            self.retweetFriends()
 ourAccount = Follower('beliebthehype')
 justinBieber = Follower('justinbieber')
-ourAccount.messager()
-justinBieber.follower()
+shit = Retweeter()
+shit.retweeterRandom()
 
 
 
