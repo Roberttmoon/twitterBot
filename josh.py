@@ -20,6 +20,7 @@ class Follower:
     def __init__(self, twitterHandle):
         self.userName = twitterHandle
         self.followers = api.followers_ids(self.userName)
+        self.weFollow = api.friends_ids(twitterHandle) 
     def follower(self):
         counter = random.randint(0,100)
         for x in range(1):
@@ -28,9 +29,8 @@ class Follower:
             counter -= 1
         self.followers = []
     def unfollower(self):
-        weFollow = api.friends_ids('beliebthehype')
-        numFollowers = len(weFollow) - 1
-        unfollowVictim = weFollow[random.randint(0, numFollowers)]
+        numFollowers = len(self.weFollow) - 1
+        unfollowVictim = self.weFollow[random.randint(0, numFollowers)]
         api.destroy_friendship(unfollowVictim)
     def messager(self):
         numFollowers = len(self.followers)
