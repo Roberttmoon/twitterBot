@@ -51,7 +51,7 @@ class Retweeter:
         self.tweetList = []
     def retweetdump(self):
         self.searchQuery = strings.hashTags[randint(0,len(strings.hashTags)-1)]
-        rand = random.randint(0,10)
+        rand = randint(0,10)
         for result in api.search(q=self.searchQuery, lang="en"):
             self.tweetList.append(result.id)
         json.dump([self.tweetList], dump)
@@ -60,7 +60,7 @@ class Retweeter:
         for result in api.search(q=self.searchQuery, lang="en"):
             self.tweetList.append(result.id)
         numTweets = len(self.tweetList)
-        rand = random.randint(0,numTweets)
+        rand = randint(0,numTweets)
         api.retweet(self.tweetList[rand])
     def retweetFriends(self):
         numFollowers = len(ourAccount.followers)
@@ -68,10 +68,10 @@ class Retweeter:
         for result in api.user_timeline(messageRecp):
             self.tweetList.append(result.id)
         numTweets = len(self.tweetList)
-        rand = random.randint(0,numTweets)
+        rand = randint(0,numTweets)
         api.retweet(self.tweetList[rand])
     def retweeterRandom(self):
-        rand = random.randint(0,1)
+        rand = randint(0,1)
         if rand == 0:
             self.retweetSearch()
         else:
@@ -87,7 +87,7 @@ class TweetBot:
             self.tweetList1.append(result.id)
         time.sleep(2)
         numTweets = len(self.tweetList1)
-        rand = random.randint(0,numTweets)
+        rand = randint(0,numTweets)
         tweetId = self.tweetList1[rand]
         user = api.get_status(tweetId)
         time.sleep(2)
