@@ -34,7 +34,7 @@ hashTags = [
 "#SORRY"
 ]
 
-replys = [
+replies = [
 "biebs is my hero",
 'Belieb the hype', 
 'catch the Bieber fever', 
@@ -71,6 +71,24 @@ replys = [
 "<3 <3 <3",
 "do you guys love biebs "
 "do you guys <3 biebs "
+]
+
+search = [
+"Justin Bieber"
+"Bieber"
+"Bieber Fever"
+"Selena Gomez" 
+"What do you mean"
+"Baby"
+"Never say never"
+"I'll show you"
+"Sorry"
+"Boyfriend"
+"Canada"
+"Justin"
+"J Biebs"
+"Biebs"
+"Artist of the year"
 ]
 
 #messages = ["populate later"]
