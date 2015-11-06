@@ -80,6 +80,19 @@ class Retweeter:
             self.retweetFriends()
             print("retweet follower")
 
+class Autofav:
+    def __init__(self):
+        self.tweetList = [] #empty list
+
+    def favSearch(self):
+        searchEntry = selectItem.hashtagSelector()
+        self.searchQuery = searchEntry
+        for result in api.search(q=self.searchQuery, lang="en"):
+            self.tweetList.append(result.id)
+        numTweets = len(self.tweetList)-1
+        rand = randint(0,numTweets) #adds tweets in a list, 0 to whatever
+        api.create_favorite(self.tweetList[rand])
+
 class TweetBot:
     def __init__(self):
         self.tweetList1 = []
@@ -119,6 +132,7 @@ class Core:
     def core(self):
         retweeter = Retweeter()
         scanTrends = Scan_Trends()
+        autoFav = Autofav()
         justinbieber = Follower("justinbieber") #change this to target account
         ourAccount = Follower("beliebthehype") #change this to self account
         print(ourAccount.followers)
@@ -164,6 +178,13 @@ class Core:
                 print("top trending")
                 print("sleeping for", resty)
                 time.sleep(resty)
+            elif probs < 600:
+                try:
+                    print('looking to <3')
+                    autofav.favSearch()
+                except:
+                    print("<3 failed, passing")
+                    time.sleep(resetTime)
             elif probs < 900:
                 #retweet a beiber related tweet
                 try:
