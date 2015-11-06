@@ -30,7 +30,8 @@ hashTags = [
 "#belieber",
 "#believe",
 "#believetour",
-"#bieberlove"
+"#bieberlove",
+"#SORRY"
 ]
 
 replys = [
@@ -72,9 +73,4 @@ replys = [
 "do you guys <3 biebs "
 ]
 
-class RandomString:
-    def hashTager(self):
-        return strings.hashTags[randint(0,len(strings.hashTags)-1)]
-    def replyMaker(self):
-        return strings.replys[randint(0,len(strings.replys)-1)]
-
+#messages = ["populate later"]

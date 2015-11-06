@@ -14,12 +14,13 @@ class Scan_Trends:
 		while True:
 			trends= api.trends_place(2442047)
 			hashtags= [x['name'] for x in trends[0]['trends'] if x['name'].startswith('#')]
-
+			print("imma search")
 			trend_hashes= hashtags[0]
 			tweetSearch_results= api.search(q=trend_hashes, count= 50)
 			print(hashtags)
-	sleepy_time= random.randint(120, 360)
-	time.sleep(sleepy_time)
+			sleepy_time= random.randint(120, 360)
+			print("imma sleep")
+			time.sleep(sleepy_time)
 
 zergle= Scan_Trends()
 zergle.scanner()
