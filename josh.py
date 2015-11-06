@@ -27,6 +27,11 @@ class Follower:
             print("followed " + str(self.followers[counter]))
             counter -= 1
         self.followers = []
+    def unfollower(self):
+        weFollow = api.friends_ids('beliebthehype')
+        numFollowers = len(weFollow) - 1
+        unfollowVictim = weFollow[random.randint(0, numFollowers)]
+        api.destroy_friendship(unfollowVictim)
     def messager(self):
         numFollowers = len(self.followers)
         messageRecp = self.followers[random.randint(0,numFollowers)]
@@ -65,21 +70,6 @@ class Retweeter:
             self.retweetSearch()
         else:
             self.retweetFriends()
-    def replyer(self):
-        searchJunk = "#Purpose"
-        self.searchQuery = searchJunk
-        for result in api.search(q=self.searchQuery, lang="en"):
-            self.tweetList.append(result.id)
-        time.sleep(2)
-        numTweets = len(self.tweetList)
-        rand = random.randint(0,numTweets)
-        tweetId = self.tweetList[rand]
-        user = api.get_status(tweetId)
-        time.sleep(2)
-        sn = user.user.screen_name
-        m = "@{0}, {1} {2}".format(sn, "biebs is my hero", searchJunk)
-        api.update_status(status=m, in_reply_to_status_id = tweetId)
-        self.tweetList = []
 class TweetBot:
     def __init__(self):
         self.tweetList1 = []
@@ -108,9 +98,9 @@ class TweetBot:
     
         
         
-
-blah = TweetBot()
-blah.tweeter()
+ourAccount = Follower("beliebthehype")
+#justinbieber = Follower("justinbieber")
+ourAccount.unfollower()
 
 
 
