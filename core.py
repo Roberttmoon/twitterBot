@@ -9,7 +9,6 @@ import strings
 ## keys
 #Twitter Keys
 
-
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
@@ -24,11 +23,24 @@ class Scan_Trends:
     def scanner(self):
         trends= api.trends_place(2442047)
         hashtags= [x['name'] for x in trends[0]['trends'] if x['name'].startswith('#')]
-
         trend_hashes= hashtags[0]
-        #tweetSearch_results= api.search(q=trend_hashes,count= 50)
-
+        tweetSearch_results= api.search(q=trend_hashes,count= 50)
+        print()
         print(hashtags)
+        print()
+        print(strings.hashTags)
+        print()
+        overlap = set(hashtags).intersection(strings.hashTags)
+        if bool(overlap) == True:
+            for tweet in overlap:
+                screenName = tweet.user.screen_name
+                message = screen.replieselector()
+                beibHash = overlap
+                beibTweet = "@{0}, {1} {2}".format(screenName, message, beibHash)
+                print(beibTweet)
+                api.udate_status(status=beibTweet)
+        else:
+            print("no trends found :(")
 
 class Follower:
     def __init__(self, twitterHandle):
@@ -43,7 +55,7 @@ class Follower:
     def messager(self):
         numFollowers = len(self.followers)
         messageRecp = self.followers[randint(0,numFollowers-1)]
-        msg = strings.replys[randint(0,len(strings.replys)-1)]
+        msg = strings.replies[randint(0,len(strings.replies)-1)]
         api.send_direct_message(user_id = messageRecp, text = msg)
 
 class Retweeter:
@@ -103,19 +115,19 @@ class TweetBot:
             self.tweetList1.append(result.id)
         time.sleep(2)
         numTweets = len(self.tweetList1)
-        rand = randint(0,numTweets)
+        rand = randint(0,numTweets -1)
         tweetId = self.tweetList1[rand]
         user = api.get_status(tweetId)
         time.sleep(2)
         sn = user.user.screen_name
-        msg = strings.replys[randint(0,len(strings.replys)-1)]
+        msg = strings.replies[randint(0,len(strings.replies)-1)]
         content = "@{0}, {1} {2}".format(sn, msg, searchJunk)
         print(content)
         api.update_status(status=content, in_reply_to_status_id = tweetId)
         self.tweetList1 = []
     def tweeter(self):
         hashtag = strings.hashTags[randint(0,len(strings.hashTags)-1)]
-        tweetMessage = strings.replys[randint(0,len(strings.replys)-1)]
+        tweetMessage = strings.replies[randint(0,len(strings.replies)-1)]
         content = (tweetMessage, hashtag)
         print(content)
         api.update_status(status=content)
@@ -181,7 +193,7 @@ class Core:
             elif probs < 600:
                 try:
                     print('looking to <3')
-                    autofav.favSearch()
+                    autoFav.favSearch()
                 except:
                     print("<3 failed, passing")
                     time.sleep(resetTime)
